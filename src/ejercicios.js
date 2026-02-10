@@ -1,20 +1,19 @@
-// ejercicios.js
-const aprendices = [
-  { nombre: "Ana", nota: 4.2 },
-  { nombre: "Luis", nota: 2.8 },
-  { nombre: "María", nota: 4.5 },
-  { nombre: "Pedro", nota: 3.5 }
-];
+// Agrupamos la información en un objeto para mayor orden
+const aprendiz = {
+    nombre: "Carolina",
+    ficha: 3223874,
+    notas: [4.0, 4.5, 3.8] // Esto es un arreglo
+};
 
-// Filtrar aprobados
-const aprobados = aprendices.filter(a => a.nota >= 3.0);
-console.log("Aprobados:", aprobados.length);
+// Usamos el método .reduce() para sumar las notas de forma profesional
+const sumaNotas = aprendiz.notas.reduce((acumulado, notaActual) => acumulado + notaActual, 0);
+const promedio = sumaNotas / aprendiz.notas.length;
 
-// Calcular promedio general
-const totalNotas = aprendices.reduce((sum, a) => sum + a.nota, 0);
-const promedioGrupo = totalNotas / aprendices.length;
-console.log("Promedio grupo:", promedioGrupo.toFixed(2));
+console.log(`=== REPORTE DE NOTAS ===`);
+console.log(`Aprendiz: ${aprendiz.nombre}`);
+console.log(`Ficha:    ${aprendiz.ficha}`);
+console.log(`Promedio: ${promedio.toFixed(2)}`);
 
-// Generar lista de nombres
-const nombres = aprendices.map(a => a.nombre);
-console.log("Nombres:", nombres.join(", "));
+// Lógica de aprobación
+const aprobado = promedio >= 3.0;
+console.log(`Estado:   ${aprobado ? '✅ APROBADO' : '❌ NO APROBADO'}`);
