@@ -1,80 +1,28 @@
-// Estado inicial
-let tareas = [
-  { id: 1, texto: "Instalar React", completada: false },
-  { id: 2, texto: "Aprender Hooks", completada: false },
-  { id: 3, texto: "Crear Agenda ADSO", completada: false }
+const aprendices = [
+{ nombre: "Ana", nota: 4.2 },
+{ nombre: "Luis", nota: 2.8 },
+{ nombre: "María", nota: 4.5 },
+{ nombre: "Pedro", nota: 3.5 }
 ];
+// Filtrar aprobados
+const aprobados = aprendices.filter(a => a.nota >= 3.0);
+console.log("Aprobados:", aprobados.length);
+// Calcular promedio general
+const totalNotas = aprendices.reduce((sum, a) => sum + a.nota, 0);
+const promedioGrupo = totalNotas / aprendices.length;
+console.log("Promedio grupo:", promedioGrupo.toFixed(2));
+// Generar lista de nombres
+const nombres = aprendices.map(a => a.nombre);
+console.log("Nombres:", nombres.join(", "));
 
-// Mostrar tareas
-const mostrarTareas = () => {
-  console.log("\n=== LISTA DE TAREAS ===");
-  tareas.forEach((tarea, index) => {
-    const estado = tarea.completada ? "✅" : "⏳";
-    console.log(`${estado} ${index + 1}. ${tarea.texto}`);
-  });
-  console.log("======================\n");
-};
+const crearContacto = (nombre, telefono) => ({
+id: Date.now(),
+nombre: nombre,
+telefono: telefono,
+fechaCreacion: new Date().toLocaleDateString()
+});
 
-// Agregar tarea
-const agregarTarea = (texto) => {
-  const nuevaTarea = {
-    id: Date.now(),
-    texto,
-    completada: false
-  };
-  tareas = [...tareas, nuevaTarea];
-  console.log(`➕ Tarea agregada: "${texto}"`);
-  return nuevaTarea;
-};
-
-// Completar tarea
-const completarTarea = (id) => {
-  tareas = tareas.map(tarea =>
-    tarea.id === id ? { ...tarea, completada: true } : tarea
-  );
-  console.log(`✅ Tarea #${id} marcada como completada`);
-};
-
-// Eliminar tarea
-const eliminarTarea = (id) => {
-  const tareaEliminada = tareas.find(t => t.id === id);
-
-  if (!tareaEliminada) {
-    console.log("⚠️ Tarea no encontrada");
-    return;
-  }
-
-  tareas = tareas.filter(t => t.id !== id);
-  console.log(`🗑️ Tarea eliminada: "${tareaEliminada.texto}"`);
-};
-
-// Pendientes
-const ObtenerPendientes = () => {
-  return tareas.filter(tarea => !tarea.completada);
-};
-
-// Estadísticas
-const obtenerEstadisticas = () => {
-  const total = tareas.length;
-  const completadas = tareas.filter(t => t.completada).length;
-  const pendientes = total - completadas;
-  const porcentaje = total > 0
-    ? ((completadas / total) * 100).toFixed(1)
-    : 0;
-
-  console.log(
-    `📊 Total: ${total} | ✅ ${completadas} | ⏳ ${pendientes} | Progreso: ${porcentaje}%`
-  );
-};
-
-// ===== DEMOSTRACIÓN =====
-console.log("=== DEMOSTRACIÓN ===");
-
-mostrarTareas();
-const Nueva = agregarTarea("Aprender JavaScript moderno");
-mostrarTareas();
-completarTarea(2);
-mostrarTareas();
-eliminarTarea(1);
-mostrarTareas();
-obtenerEstadisticas();
+const contacto1 = crearContacto("Gustavo", "3001234567");
+console.log(contacto1);
+const { nombre: nombreContacto, telefono } = contacto1;
+console.log(`Contacto: ${nombreContacto} - ${telefono}`);
